@@ -1,0 +1,12 @@
+version: '3'
+services:
+  codecheck:
+    container_name: "codeCheck"
+    working_dir: "/home/code"
+    build: ./
+    volumes:
+      - ./code:/home/code
+    ports:
+      - "4444:8080"
+    tty: true
+
