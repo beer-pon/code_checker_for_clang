@@ -1,0 +1,1 @@
+# code_checker_for_clang
