@@ -1,17 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Title/>
+    <FileReader @fileUp="uploadedFile" />
+    <FileViewer :file="file" :fileNamePre="fileName"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Title from './components/Title.vue'
+import FileReader from './components/FileReader.vue'
+import FileViewer from './components/FileViewer.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Title ,
+    FileReader,
+    FileViewer
+  },
+  data: function () {
+    return {
+      file: {},
+      fileName: ""
+    };
+  },
+  methods: {
+    uploadedFile(file) {
+      this.file=file;
+      this.fileName=file.name;
+    }
   }
 }
 </script>
@@ -23,6 +40,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

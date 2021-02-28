@@ -22,3 +22,9 @@ RUN dnf module -y install nodejs:14
 
 # vie js用のインターフェースインストール
 RUN npm install -g @vue/cli
+
+# 起動スクリプトをコピー
+COPY env/server_start /usr/local/bin/
+RUN chmod +x /usr/local/bin/server_start
+
+CMD ["server_start"]
