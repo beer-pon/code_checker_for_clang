@@ -1,34 +1,24 @@
 <template>
   <div id="app">
     <Title/>
-    <FileReader @fileUp="uploadedFile" />
-    <FileViewer :file="file" :fileNamePre="fileName"/>
+    <v-tabs  
+      background-color="deep-purple accent-4"
+      centered
+      >
+      <v-tab to="/" centered>Top</v-tab>
+      <v-tab to="/upload">CodeCheck</v-tab>
+    </v-tabs>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Title from './components/Title.vue'
-import FileReader from './components/FileReader.vue'
-import FileViewer from './components/FileViewer.vue'
 
 export default {
   name: 'App',
   components: {
     Title ,
-    FileReader,
-    FileViewer
-  },
-  data: function () {
-    return {
-      file: {},
-      fileName: ""
-    };
-  },
-  methods: {
-    uploadedFile(file) {
-      this.file=file;
-      this.fileName=file.name;
-    }
   }
 }
 </script>
