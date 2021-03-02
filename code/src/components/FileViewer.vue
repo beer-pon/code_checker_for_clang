@@ -1,13 +1,20 @@
 <template>
   <div class="code-area">
-<!--    <h3>{{ filename }}</h3> -->
     <h3>{{fileName}}</h3>
     <v-simple-table border>
     <template v-slot:default class="code-table">
       <tbody>
       <tr v-for="line in fileLines" :key="line.index" class="code-table-tr">
-        <td class="code-table-td code-table-td-number">{{line.index}}</td>
-        <td class="code-table-td code-table-td-code" ><code><pre>{{line.code}}</pre></code></td>
+        <td class="code-table-td code-table-td-number">{{line.number}}</td>
+        <v-tooltip bottom v-if="line.errorMsg">
+          <template v-slot:activator="{ on }" >
+          <v-app id="tooltip-app">
+            <td v-on="on" class="code-table-td code-table-td-code error"><code>{{line.code}}</code></td>
+          </v-app>
+          </template>
+          <span>{{line.errorMsg}}</span>
+        </v-tooltip>
+        <td class="code-table-td code-table-td-code" v-if="!line.errorMsg"><code>{{line.code}}</code></td>
       </tr>
       </tbody>
     </template>
@@ -16,7 +23,9 @@
 </template>
 
 <script>
+import { codeCheck } from '@/logic/codeCheck'
 export default {
+  components: {  },
   name: 'FileViewer' ,
   props: {
       file: [Object,File],
@@ -24,7 +33,7 @@ export default {
   data:  function () {
     return {
       fileName: "",
-      fileLines: "",
+      fileLines: {},
     };
   },
   watch:{
@@ -46,11 +55,7 @@ export default {
       reader.onload = (e) => {
         this.uploadedFile = e.target.result;
         let lines = this.uploadedFile.split("\n");
-        let linesArr = [];
-        for (let i = 0; i < lines.length; i++) {
-          linesArr[i] = {index:i + 1,code:lines[i]};
-        }
-        this.fileLines = linesArr;
+        this.fileLines = codeCheck(lines);
       };
     },    
   }
@@ -88,5 +93,17 @@ table {
 .code-area {
   margin-left: auto;
   margin-right: auto;
+}
+.error{
+  background-color: red;
+}
+.v-application--wrap{
+    width: 100% !important;
+    flex: inherit !important;
+    min-height: 0 !important;
+    background-color: inherit !important;
+}
+#tooltip-app{
+    background-color: inherit !important;
 }
 </style>
