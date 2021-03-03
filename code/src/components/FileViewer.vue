@@ -9,12 +9,12 @@
         <v-tooltip bottom v-if="line.errorMsg">
           <template v-slot:activator="{ on }" >
           <v-app id="tooltip-app">
-            <td v-on="on" class="code-table-td code-table-td-code error"><code>{{line.code}}</code></td>
+            <td v-on="on" class="code-table-td code-table-td-code error"><pre>{{line.code}}</pre></td>
           </v-app>
           </template>
           <span>{{line.errorMsg}}</span>
         </v-tooltip>
-        <td class="code-table-td code-table-td-code" v-if="!line.errorMsg"><code>{{line.code}}</code></td>
+        <td class="code-table-td code-table-td-code" v-if="!line.errorMsg"><pre>{{line.code}}</pre></td>
       </tr>
       </tbody>
     </template>
