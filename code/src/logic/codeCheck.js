@@ -92,7 +92,6 @@ function setCheckRule(){
     checkRules.push(new CheckRule(/[^\s]+;/,";の前の空白に空白がありません",CHECK_TYPE.ERROR));
     checkRules.push(new CheckRule(/[^\s]+[\s]*{/,"{より前に空白以外の文字があります",CHECK_TYPE.ERROR));
     checkRules.push(new CheckRule(/[^\s]+[\s]*}/,"}より前に空白以外の文字がある行",CHECK_TYPE.ERROR));
-
     checkRules.push(new CheckRule(/\([^\s]+/,"(の直後に空白がない",CHECK_TYPE.ERROR));
     checkRules.push(new CheckRule(/[^\s]+\)/,")の直前に空白がない",CHECK_TYPE.ERROR));
     checkRules.push(new CheckRule(/;\s*[^/\n\s]/,";以降にコメント以外がある。;以降に/以外で始まる文字がある行",CHECK_TYPE.ERROR));
